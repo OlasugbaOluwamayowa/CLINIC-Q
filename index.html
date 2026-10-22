@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClinicQ | Smarter Queues. Healthier You.</title>
+<meta name="description" content="ClinicQ is a prototype for booking clinic slots and tracking your queue ticket.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#112433" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect x='34' y='8' width='32' height='84' rx='16' fill='%230d7a7b'/%3E%3Crect x='8' y='34' width='84' height='32' rx='16' fill='%2326a69a'/%3E%3Cpath d='M38 52Q52 62 60 44' stroke='%23ffffff' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+<script>try{var t=localStorage.getItem('clinicq-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');if(t==='dark')document.documentElement.setAttribute('data-theme','dark')}catch(e){}</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container bar">
+    <a href="#top" class="logo" aria-label="ClinicQ home">
+      <svg width="34" height="34" viewBox="0 0 100 100" aria-hidden="true"><rect x="34" y="8" width="32" height="84" rx="16" fill="#0d7a7b"/><rect x="8" y="34" width="84" height="32" rx="16" fill="#26a69a"/><path d="M38 52Q52 62 60 44" stroke="#fff" stroke-width="5" fill="none" stroke-linecap="round"/></svg>
+      <span>Clinic<b>Q</b></span>
+    </a>
+    <nav id="siteNav" class="nav" aria-label="Main">
+      <a href="#top">Home</a>
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#track" data-tab="track">Track queue</a>
+      <a href="#book" data-tab="book" class="btn btn-primary nav-cta">Book appointment</a>
+    </nav>
+    <div class="bar-end">
+      <button id="themeToggleBtn" class="icon-btn" type="button" aria-label="Switch to dark mode">
+        <svg class="i-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <button id="menuBtn" class="icon-btn menu-btn" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="Open menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section id="top" class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Smarter Queues. Healthier You.</p>
+      <h1>No More Waiting Rooms.</h1>
+      <p class="lead">Book your slot, track the queue, walk in only when it’s your turn.</p>
+      <p class="muted">Say goodbye to long hospital waits. This is a working prototype: bookings stay in your browser.</p>
+      <div class="cta-row">
+        <a href="#book" data-tab="book" class="btn btn-primary btn-lg">Book Your Slot Online</a>
+        <a href="#track" data-tab="track" class="btn btn-outline btn-lg">Track Queue Live</a>
+      </div>
+    </div>
+
+    <figure class="phone-wrap">
+      <div id="phonePreview" class="phone" role="img" aria-label="Preview of the ClinicQ queue screen showing demonstration data">
+        <div class="phone-notch"></div>
+        <div class="p-status"><span>9:41</span><span>Demo</span></div>
+        <p class="p-label">Your queue number</p>
+        <div class="p-ticket">
+          <div id="displayQueueNumber" class="p-num">A024</div>
+          <div id="displayDeptName" class="p-dept">General Outpatient Clinic</div>
+        </div>
+        <div class="p-wait">
+          <span>Estimated wait</span>
+          <strong id="displayWaitTime">12 min</strong>
+        </div>
+        <ol class="steps">
+          <li class="done"><i>✓</i>Booked</li>
+          <li id="stepQueue" class="now"><i></i>In queue</li>
+          <li><i></i>Consult</li>
+        </ol>
+        <p class="p-note" id="phoneNotificationText">Sample data for demonstration.</p>
+        <div class="p-nav"><span class="on">Home</span><span>Book</span><span>Queue</span><span>Profile</span></div>
+      </div>
+      <figcaption class="muted small">Demonstration data. Not a live hospital queue.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="how" class="section container">
+  <h2>How it works</h2>
+  <ol class="how">
+    <li><span class="n">1</span><h3>Book your appointment</h3><p>Enter your details, then pick a date and time slot.</p></li>
+    <li><span class="n">2</span><h3>Receive your queue details</h3><p>The prototype creates a queue ticket and shows your schedule on screen. No email is sent.</p></li>
+    <li><span class="n">3</span><h3>Monitor your queue</h3><p>Look up your ticket to see its demonstration status.</p></li>
+  </ol>
+  <p class="muted small">Real email delivery and live hospital queues need backend services that this prototype does not have.</p>
+</section>
+
+<section id="features" class="section container">
+  <h2>Features</h2>
+  <div class="features">
+    <article class="card feat">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M9 16l2 2 4-4"/></svg>
+      <h3>Easy Booking</h3><p>Pick a clinic, date and slot in one short form.</p>
+    </article>
+    <article class="card feat">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>
+      <h3>Real-Time Queue Tracking</h3><p>Check where your ticket stands. Live data needs a hospital integration.</p>
+    </article>
+    <article class="card feat">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <h3>Less Time at the Hospital</h3><p>See your vitals and consultation times before you leave home.</p>
+    </article>
+    <article class="card feat">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v8M8 12h8"/></svg>
+      <h3>A Smoother, Safer Experience</h3><p>Spend less time in crowded waiting rooms.</p>
+    </article>
+  </div>
+</section>
+
+<section id="booking" class="section container">
+  <div class="panel">
+    <h2>Book a slot or check your queue</h2>
+    <div class="tabs" role="tablist" aria-label="Booking and tracking">
+      <button id="bookTabBtn" class="tab" type="button" role="tab" aria-selected="true" aria-controls="bookingFormContainer">Book appointment</button>
+      <button id="trackTabBtn" class="tab" type="button" role="tab" aria-selected="false" aria-controls="trackingContainer" tabindex="-1">Track queue</button>
+    </div>
+
+    <div id="bookingFormContainer" class="card pane" role="tabpanel" aria-labelledby="bookTabBtn">
+      <form id="clinicBookingForm" novalidate>
+        <p class="muted small">Prototype: your details stay in this browser and are not sent anywhere. Fields marked * are required.</p>
+        <div class="grid">
+          <div class="field"><label for="patientName">Full name <span aria-hidden="true">*</span></label>
+            <input id="patientName" autocomplete="name" placeholder="e.g. Adebayo Ogunleye" required aria-describedby="err-patientName">
+            <p class="err" id="err-patientName"></p></div>
+          <div class="field"><label for="patientEmail">Email address <span aria-hidden="true">*</span></label>
+            <input id="patientEmail" type="email" autocomplete="email" inputmode="email" placeholder="patient@example.com" required aria-describedby="err-patientEmail">
+            <p class="err" id="err-patientEmail"></p></div>
+          <div class="field"><label for="patientDept">Clinic / unit</label>
+            <select id="patientDept">
+              <option>General Outpatient Clinic</option>
+              <option>Cardiology &amp; ECG Unit</option>
+              <option>Neurology (EEG / EMG) Unit</option>
+              <option>Pediatrics Clinic</option>
+              <option>Eye &amp; Ophthalmology</option>
+            </select></div>
+          <div class="field"><label for="bookingDate">Appointment date <span aria-hidden="true">*</span></label>
+            <input id="bookingDate" type="date" required aria-describedby="err-bookingDate">
+            <p class="err" id="err-bookingDate"></p></div>
+          <div class="field wide"><label for="bookingSlot">Preferred time slot</label>
+            <select id="bookingSlot" aria-describedby="err-bookingSlot">
+              <option value="09:00 AM">09:00 AM (vitals 08:45 AM)</option>
+              <option value="10:30 AM">10:30 AM (vitals 10:15 AM)</option>
+              <option value="12:00 PM">12:00 PM (vitals 11:45 AM)</option>
+              <option value="02:00 PM">02:00 PM (vitals 01:45 PM)</option>
+            </select>
+            <p class="err" id="err-bookingSlot"></p></div>
+        </div>
+        <p id="formError" class="err form-err" role="alert"></p>
+        <button id="bookSubmit" type="submit" class="btn btn-primary btn-block">Confirm booking</button>
+      </form>
+
+      <div id="emailPreviewCard" class="confirm" role="region" hidden tabindex="-1" aria-labelledby="confirmTitle">
+        <h3 id="confirmTitle">Booking confirmed (on-screen demo)</h3>
+        <p id="emailRecipientDisplay" class="muted small"></p>
+        <div class="ticket-row"><span id="mailTicket" class="badge"></span>
+          <button id="copyTicketBtn" class="btn btn-outline btn-sm" type="button">Copy ticket</button></div>
+        <dl>
+          <dt>Clinic</dt><dd id="mailDept"></dd>
+          <dt>Date</dt><dd id="mailDate"></dd>
+          <dt>Arrive for vitals</dt><dd id="mailVitalsTime"></dd>
+          <dt>Consultation</dt><dd id="mailConsultTime"></dd>
+        </dl>
+        <p class="small">Next step: keep your ticket, then use <a href="#track" data-tab="track">Track queue</a> to look it up. No email was sent.</p>
+        <button id="newBookingBtn" class="btn btn-outline" type="button">Start a new booking</button>
+      </div>
+    </div>
+
+    <div id="trackingContainer" class="card pane" role="tabpanel" aria-labelledby="trackTabBtn" hidden>
+      <form id="trackingForm" novalidate>
+        <div class="field"><label for="trackInput">Queue number or email</label>
+          <div class="track-row">
+            <input id="trackInput" placeholder="e.g. A024" autocomplete="off" aria-describedby="err-trackInput">
+            <button id="trackSubmit" type="submit" class="btn btn-primary">Check status</button>
+          </div>
+          <p class="err" id="err-trackInput"></p>
+          <p class="muted small">Try A024 (sample ticket) or a ticket you booked in this browser.</p></div>
+      </form>
+      <div id="trackResultBox" class="result" role="region" aria-label="Queue ticket result" hidden tabindex="-1">
+        <div class="ticket-row"><span id="resTicket" class="badge"></span><span id="resStatus" class="status"></span></div>
+        <p id="resDetail"></p>
+        <p id="resNext" class="small"></p>
+        <p class="muted small">Demonstration data stored in this browser. Not a live hospital queue.</p>
+      </div>
+      <p id="trackEmpty" class="result notfound" role="alert" hidden></p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="container foot">
+    <div><div class="logo foot-logo"><span>Clinic<b>Q</b></span></div>
+      <p>Better care starts with a shorter wait. ClinicQ is a prototype, not a production healthcare service.</p></div>
+    <nav aria-label="Footer"><a href="#how">How it works</a><a href="#features">Features</a><a href="#book" data-tab="book">Book appointment</a><a href="#track" data-tab="track">Track queue</a></nav>
+    <p class="small copy">&copy; 2026 ClinicQ. All rights reserved.</p>
+  </div>
+</footer>
+
+<div id="emailToast" class="toast" role="status" aria-live="polite" hidden><p id="toastMessage"></p></div>
+<script src="script.js"></script>
+</body>
+</html>
